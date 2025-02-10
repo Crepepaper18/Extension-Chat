@@ -22,3 +22,7 @@ sendBtn.addEventListener('click', (e) => {
     socket.emit("New message", {username, message});
     messageInput.value = "";
 });
+
+document.querySelector(".close").addEventListener('click',() => {
+    window.close();
+})
