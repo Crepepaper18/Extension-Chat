@@ -25,10 +25,10 @@ io.on('connection', (socket) => {
     })
 });
 
-app.use(express.static(path.join(__dirname,"/public")));
+app.use(express.static(path.join(__dirname)));
 
 app.get('/', (req,res) => {
-    return res.sendFile(path.join(__dirname, "public", "index.html"));
+    return res.sendFile(path.join(__dirname, "index.html"));
 });
 
 const PORT = process.env.PORT || 9000;
