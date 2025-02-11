@@ -18,3 +18,29 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ status: "Connected to WebSocket" });
     }
 });
+
+let chatWindowId = null;
+
+// Open the chat window
+chrome.action.onClicked.addListener(() => {
+    if (chatWindowId) {
+        chrome.windows.update(chatWindowId, { focused: true });
+    } else {
+        chrome.windows.create({
+            url: chrome.runtime.getURL("index.html"),
+            type: "popup",
+            width: 400,
+            height: 600
+        }, (win) => {
+            chatWindowId = win.id;
+        });
+    }
+});
+
+chrome.windows.onFocusChanged.addListener((windowId) => {
+    if (windowId !== chatWindowId && chatWindowId !== null) {
+        chrome.windows.update(chatWindowId, { focused: true });
+    }
+});
+
+
